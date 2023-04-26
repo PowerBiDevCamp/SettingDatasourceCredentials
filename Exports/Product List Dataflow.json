@@ -1,0 +1,11 @@
+[
+  {
+    "datasourceType": "Sql",
+    "connectionDetails": {
+      "server": "devcamp.database.windows.net",
+      "database": "WingtipSalesDev"
+    },
+    "gatewayId": "f27543e0-7537-479c-9f68-003dcd82eb5f",
+    "datasourceId": "e35ab06a-48ab-4af8-acac-4dc6436dfecb"
+  }
+]

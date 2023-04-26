@@ -1,0 +1,11 @@
+[
+  {
+    "datasourceType": "Extension",
+    "connectionDetails": {
+      "path": "https://devcampkusto.eastus2.kusto.windows.net",
+      "kind": "AzureDataExplorer"
+    },
+    "gatewayId": "07637d79-a021-4712-8f65-0e649fb627d3",
+    "datasourceId": "dcb756f7-62b9-49ee-a877-50eb8d233b88"
+  }
+]

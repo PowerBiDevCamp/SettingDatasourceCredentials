@@ -1,0 +1,11 @@
+[
+  {
+    "datasourceType": "Extension",
+    "connectionDetails": {
+      "path": "PowerPlatformDataflows",
+      "kind": "PowerPlatformDataflows"
+    },
+    "gatewayId": "f27543e0-7537-479c-9f68-003dcd82eb5f",
+    "datasourceId": "857bffe2-4687-4ca3-821a-4e7128b6a104"
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "datasourceType": "AzureDataLakeStorage",
+    "connectionDetails": {
+      "server": "devcampadls.dfs.core.windows.net",
+      "path": "/exceldata/"
+    },
+    "gatewayId": "07637d79-a021-4712-8f65-0e649fb627d3",
+    "datasourceId": "859c7bf7-0d68-45d2-afcd-4db4ad8f6e4d"
+  }
+]
