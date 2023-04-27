@@ -1,6 +1,6 @@
 ﻿using SettingDatasourceCredentials.Services;
 
-string WorkspaceName = "AAA: Setting Credentials";
+string WorkspaceName = "A Demo workspace";
 
 DatasetManager.OnboardNewCustomerTenant(WorkspaceName);
 

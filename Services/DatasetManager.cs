@@ -41,23 +41,18 @@ namespace SettingDatasourceCredentials.Services {
       // Demo 1 - patch Web datasource with Anonymous credentials
       ProvisionDatasetWithAnonymousDatasource(workspace, "Anonymous Datasource - Product Sales");
 
-      
-
       // Demo 2 - patch SQL datasource with Basic credentials
-      ProvisionDatasetWithSqlDatasource(workspace, "SQL Datasource - Wingtip Sales", AppSettings.SqlDatabaseServer, AppSettings.SqlDatabaseWingtip);
-
-      return;
-
-      //ProvisionDatasetWithSqlDatasource(workspace, "SQL Datasource - Contoso Sales", AppSettings.SqlDatabaseServer, AppSettings.SqlDatabaseContoso);
+     ProvisionDatasetWithSqlDatasource(workspace, "SQL Datasource - Wingtip Sales", AppSettings.SqlDatabaseServer, AppSettings.SqlDatabaseWingtip);
+     ProvisionDatasetWithSqlDatasource(workspace, "SQL Datasource - Contoso Sales", AppSettings.SqlDatabaseServer, AppSettings.SqlDatabaseContoso);
 
       // Demo 3 - patch SQL datasource for paginated report with Basic credentials
-      //ProvisionPaginatedReportWithSqlDatasource(workspace.Id, "SQL Datasource for Paginated Report");
+      ProvisionPaginatedReportWithSqlDatasource(workspace.Id, "SQL Datasource for Paginated Report");
 
       // Demo 4 - patch SQL datasource for dataflow using Basic credentials
-      //ProvisionDatasetWithDataflowDatasource(workspace.Id, "Dataflow as Datasource for Dataset");
+      ProvisionDatasetWithDataflowDatasource(workspace.Id, "Dataflow as Datasource for Dataset");
 
       // Demo 5 - patch ADLS file datasource with Key credentials
-      ProvisionDatasetWithAdlsFileDatasource(workspace, "ADLS Datasource - Contoso Sales", AppSettings.AdlsContainerPath, AppSettings.AdlsFileName1);
+     ProvisionDatasetWithAdlsFileDatasource(workspace, "ADLS Datasource - Contoso Sales", AppSettings.AdlsContainerPath, AppSettings.AdlsFileName1);
       ProvisionDatasetWithAdlsFileDatasource(workspace, "ADLS Datasource - Wingtip Sales", AppSettings.AdlsContainerPath, AppSettings.AdlsFileName2);
 
       // Demo 6 - patch SharePoint file datasource with OAuth2 credentials for User
@@ -71,10 +66,13 @@ namespace SettingDatasourceCredentials.Services {
 
     public static void ProvisionDatasetWithAnonymousDatasource(Group Workspace, string ImportName) {
       Import importJob = ImportPBIX(Workspace.Id, Properties.Resources.DatasetWithAnonymousDatasource_pbix, ImportName);
-      string datasetId = importJob.Datasets[0].Id;
+
+      var dataset = GetDataset(Workspace.Id, ImportName);
+      string datasetId = dataset.Id;
+
       PatchAnonymousDatasourceCredentials(Workspace.Id, datasetId);
-      RefreshDataset(Workspace.Id, datasetId);
       SetRefreshSchedule(Workspace.Id, datasetId);
+      RefreshDataset(Workspace.Id, datasetId);
     }
 
     public static void ProvisionDatasetWithSqlDatasource(Group Workspace, string ImportName, string DatabaseServer, string DatabaseName) {
@@ -109,24 +107,7 @@ namespace SettingDatasourceCredentials.Services {
       var report = pbiClient.Reports.GetReportInGroup(WorkspaceId, import.Reports[0].Id);
 
       var reportDatasources = pbiClient.Reports.GetDatasourcesInGroup(WorkspaceId, report.Id);
-      Datasource reportDatasource = reportDatasources.Value[0];
-
-      var updateRdlDatasourceDetailsList = new List<UpdateRdlDatasourceDetails>() {
-        new UpdateRdlDatasourceDetails {
-          DatasourceName = "SqlDatabase",
-          ConnectionDetails = new RdlDatasourceConnectionDetails {
-          Server = AppSettings.SqlDatabaseServer,
-          Database = AppSettings.SqlDatabaseWingtip
-          }
-        }
-      };
-
-      var updateDatasourcesRequest = new UpdateRdlDatasourcesRequest(updateRdlDatasourceDetailsList);
-      pbiClient.Reports.UpdateDatasourcesInGroup(WorkspaceId, report.Id, updateDatasourcesRequest);
-
-      // get datasource again after database path has been updated
-      reportDatasources = pbiClient.Reports.GetDatasourcesInGroup(WorkspaceId, report.Id);
-      reportDatasource = reportDatasources.Value[0];
+      Datasource reportDatasource = reportDatasources.Value[0];      
 
       // get dataset ID and gateway ID required to patch credentials
       var datasourceId = reportDatasource.DatasourceId;
@@ -183,7 +164,11 @@ namespace SettingDatasourceCredentials.Services {
     public static void ProvisionDatasetWithAdlsFileDatasource(Group Workspace, string ImportName, string AdlsContainer, string ExcelFileName) {
 
       Import importJob = ImportPBIX(Workspace.Id, Properties.Resources.DatasetWithAdlsFileDatasource_pbix, ImportName);
-      string datasetId = importJob.Datasets[0].Id;
+      var dataset = GetDataset(Workspace.Id, ImportName);
+      string datasetId = dataset.Id;
+
+      var datasources = pbiClient.Datasets.GetDatasourcesInGroup(Workspace.Id, datasetId).Value;
+
 
       UpdateMashupParametersRequest req =
         new UpdateMashupParametersRequest(new List<UpdateMashupParameterDetails>() {
@@ -409,11 +394,11 @@ namespace SettingDatasourceCredentials.Services {
 
       if (UseServicePrincipalToken) {
         // create scopes for service principal authentication
-        string[] scopesForServicePrincipal = new string[] { 
-          AppSettings.KustoResourceId + "/.default" 
+        string[] scopesForServicePrincipal = new string[] {
+          AppSettings.KustoResourceId + "/.default"
         };
         // get access token for service principal
-        accessTokenForKustoServer = TokenManager.GetAccessTokenForServicePrincipal(scopesForServicePrincipal);        
+        accessTokenForKustoServer = TokenManager.GetAccessTokenForServicePrincipal(scopesForServicePrincipal);
       }
       else {
         // create scopes for user authentication
@@ -448,6 +433,7 @@ namespace SettingDatasourceCredentials.Services {
     #region "Methods for Creating Workspaces and Importing PBIX Files"
 
     public static Group CreatWorkspace(string Name) {
+      Console.WriteLine("Creating workspace " + Name);
 
       // delete workspace with same name if it already exists
       Group workspace = GetWorkspace(Name);
@@ -483,6 +469,19 @@ namespace SettingDatasourceCredentials.Services {
     }
 
     public static Import ImportPBIX(Guid WorkspaceId, byte[] PbixContent, string ImportName) {
+      Console.WriteLine("Importing PBIX for " + ImportName);
+
+      MemoryStream stream = new MemoryStream(PbixContent);
+      var import = pbiClient.Imports.PostImportWithFileInGroup(WorkspaceId, stream, ImportName, ImportConflictHandlerMode.CreateOrOverwrite);
+
+      do { import = pbiClient.Imports.GetImportInGroup(WorkspaceId, import.Id); }
+      while (import.ImportState.Equals("Publishing"));
+
+      return import;
+    }
+
+
+    public static Import ImportPBIX2(Guid WorkspaceId, byte[] PbixContent, string ImportName) {
       Console.WriteLine("Importing " + ImportName);
 
       // load binary content from PBIX file into stream
@@ -533,6 +532,7 @@ namespace SettingDatasourceCredentials.Services {
     }
 
     public static Import ImportRDL(Guid WorkspaceId, string RdlFileContent, string ImportName) {
+      Console.WriteLine("Importing RDL for " + ImportName);
 
       string rdlImportName = ImportName + ".rdl";
 

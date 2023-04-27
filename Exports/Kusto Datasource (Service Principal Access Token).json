@@ -5,7 +5,7 @@
       "path": "https://devcampkusto.eastus2.kusto.windows.net",
       "kind": "AzureDataExplorer"
     },
-    "gatewayId": "07637d79-a021-4712-8f65-0e649fb627d3",
-    "datasourceId": "dcb756f7-62b9-49ee-a877-50eb8d233b88"
+    "gatewayId": "dd2991a6-c48e-414d-ad38-4c372596dbf9",
+    "datasourceId": "cf36ae39-222c-412c-95ac-60f5253e3e87"
   }
 ]

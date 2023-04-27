@@ -119,27 +119,27 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="CustomerSalesPaginated_rdl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\customersalespaginated.rdl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>..\resources\customersalespaginated.rdl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="DataflowWithSQlDatasource_json" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\dataflowwithsqldatasource.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>..\resources\dataflowwithsqldatasource.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="DatasetWithAdlsFileDatasource_pbix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\datasetwithadlsfiledatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\datasetwithadlsfiledatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DatasetWithAnonymousDatasource_pbix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\datasetwithanonymousdatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\datasetwithanonymousdatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DatasetWithDataflowDatasource_pbix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\datasetwithdataflowdatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\datasetwithdataflowdatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DatasetWithKustoDatasource_pbix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\datasetwithkustodatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\datasetwithkustodatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DatasetWithSharePointFileDatasource_pbix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\datasetwithsharepointfiledatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\datasetwithsharepointfiledatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DatasetWithSqlDatasource_pbix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pbix\datasetwithsqldatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\datasetwithsqldatasource.pbix;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

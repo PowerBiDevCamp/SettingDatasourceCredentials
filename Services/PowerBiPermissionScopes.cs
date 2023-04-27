@@ -1,4 +1,6 @@
 ﻿
+using static System.Net.WebRequestMethods;
+
 namespace SettingDatasourceCredentials.Services {
 
   public class PowerBiPermissionScopes {
@@ -11,7 +13,11 @@ namespace SettingDatasourceCredentials.Services {
       "https://analysis.windows.net/powerbi/api/Report.ReadWrite.All",
       "https://analysis.windows.net/powerbi/api/Dataset.ReadWrite.All",
       "https://analysis.windows.net/powerbi/api/Dataflow.ReadWrite.All",
-      "https://analysis.windows.net/powerbi/api/Workspace.ReadWrite.All"
+      "https://analysis.windows.net/powerbi/api/Workspace.ReadWrite.All",
+      //"https://analysis.windows.net/powerbi/api/Dashboard.Read.All", 
+      //"https://analysis.windows.net/powerbi/api/Dataset.Read.All", 
+      //"https://analysis.windows.net/powerbi/api/Report.Read.All", 
+      //"https://analysis.windows.net/powerbi/api/Workspace.Read.All"
     };
 
     public static readonly string[] OnPremGatewayManagement = new string[] {
@@ -24,7 +30,7 @@ namespace SettingDatasourceCredentials.Services {
       "https://analysis.windows.net/powerbi/api/Gateway.ReadWrite.All",
     };
 
-    // other possibble permission scopes used in this demo
+    // other possible permission scopes
 
     public static readonly string[] Default = new string[] {
       "https://analysis.windows.net/powerbi/api/.default"
@@ -52,7 +58,7 @@ namespace SettingDatasourceCredentials.Services {
     };
 
     public static readonly string[] TenantReadWriteAll = new string[] {
-        "https://analysis.windows.net/powerbi/api/Tenant.ReadWrite.All" // requires admin
+        "https://analysis.windows.net/powerbi/api/Tenant.ReadWrite.All" // requires admTenantReadAllin
     };
 
     public static readonly string[] BuilderPermissions = new string[] {
@@ -76,4 +82,5 @@ namespace SettingDatasourceCredentials.Services {
     };
 
   }
+
 }

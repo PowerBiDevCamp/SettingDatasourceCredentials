@@ -2,9 +2,9 @@
   {
     "datasourceType": "Web",
     "connectionDetails": {
-      "url": "https://github.com/PowerBiDevCamp/TranslationsBuilder/raw/main/Labs/ProductSalesData"
+      "url": "https://github.com/PowerBiDevCamp/TranslationsBuilder/raw/main/LiveDemo/ProductSalesData/Products.csv"
     },
-    "gatewayId": "07637d79-a021-4712-8f65-0e649fb627d3",
-    "datasourceId": "29653303-d700-406d-a894-ffda85595313"
+    "gatewayId": "dd2991a6-c48e-414d-ad38-4c372596dbf9",
+    "datasourceId": "9a9cd551-5c9e-4957-85d6-07b5d0b63701"
   }
 ]
